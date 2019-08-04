@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.net.Uri
 import android.service.voice.VoiceInteractionSession
 import android.view.View
 import android.widget.Button
 import androidx.core.content.FileProvider
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.theartofdev.edmodo.cropper.CropImageView
 import de.beatbrot.screenshotassistant.R
 import java.io.File
@@ -16,12 +18,13 @@ import java.io.FileOutputStream
 
 
 const val AUTHORITY_NAME = "de.beatbrot.screenshotassistant.fileprovider"
+const val MIME_TYPE = "image/jpeg"
 
 class InteractionSession(context: Context) : VoiceInteractionSession(context) {
     private var currentView: View? = null
     private var imageCropper: CropImageView? = null
     private var screenshot: Bitmap? = null
-    private lateinit var button: Button
+    private lateinit var button: FloatingActionButton
 
     override fun onCreateContentView(): View {
         val layout = layoutInflater.inflate(R.layout.activity_main, null)
@@ -37,26 +40,17 @@ class InteractionSession(context: Context) : VoiceInteractionSession(context) {
 
     override fun onHandleScreenshot(shot: Bitmap?) {
         screenshot = shot
-        imageCropper?.setImageBitmap(screenshot)
+        imageCropper?.apply {
+            setImageBitmap(screenshot)
+            cropRect = Rect(wholeImageRect)
+        }
     }
 
     fun shareImage() {
         val screenshotUri = getScreenshotUri()
         val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "image/jpeg"
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            type = MIME_TYPE
             putExtra(Intent.EXTRA_STREAM, screenshotUri)
-        }
-
-        val resInfoList =
-            context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        for (resolveInfo in resInfoList) {
-            val packageName = resolveInfo.activityInfo.packageName
-            context.grantUriPermission(
-                packageName,
-                screenshotUri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
         }
 
         val chooserIntent = Intent.createChooser(intent, "Demo")
@@ -68,7 +62,7 @@ class InteractionSession(context: Context) : VoiceInteractionSession(context) {
         val scrFile = createScreenshotFile()
 
         FileOutputStream(scrFile).use { stream ->
-            screenshot?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            imageCropper?.croppedImage?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         }
 
         return FileProvider.getUriForFile(context, AUTHORITY_NAME, scrFile)
@@ -76,9 +70,12 @@ class InteractionSession(context: Context) : VoiceInteractionSession(context) {
 
     private fun createScreenshotFile(): File {
         val scrDir = File(context.filesDir, "screenshots")
-        val scrFile = File(scrDir, "scr_${System.currentTimeMillis()}.jpg")
+        val scrFile = File(scrDir, "scr.jpg")
 
         scrFile.parentFile.mkdir()
+        if (scrFile.exists()) {
+            scrFile.delete()
+        }
         scrFile.createNewFile()
 
         return scrFile
