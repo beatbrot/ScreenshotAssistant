@@ -1,9 +1,11 @@
-<vector android:height="108dp"
+<vector xmlns:tools="http://schemas.android.com/tools"
+    android:height="108dp"
     android:viewportHeight="256"
     android:viewportWidth="256"
     android:width="108dp"
     xmlns:aapt="http://schemas.android.com/aapt"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:keep="@drawable/ic_icon_bg">
     <path android:pathData="M0,0h256v256h-256z">
         <aapt:attr name="android:fillColor">
             <gradient

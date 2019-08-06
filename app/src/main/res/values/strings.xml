@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Screenshot Assistant</string>
+    <string name="copyright">© beatbrot 2019</string>
+    <string name="about">About</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="apache_2" translatable="false">Apache 2.0</string>
+    <string name="license">License</string>
+    <string name="version">Version</string>
+    <string name="more">More</string>
 </resources>

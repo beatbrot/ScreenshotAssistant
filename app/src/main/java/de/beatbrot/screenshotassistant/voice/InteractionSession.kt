@@ -10,13 +10,15 @@ import java.io.File
 import java.io.FileOutputStream
 
 class InteractionSession(context: Context) : VoiceInteractionSession(context) {
-    override fun onHandleScreenshot(shot: Bitmap) {
-        val startIntent = Intent(context, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            putExtra("screenshot", getScreenshotUri(shot))
+    override fun onHandleScreenshot(screenshot: Bitmap?) {
+        screenshot?.let { shot ->
+            val startIntent = Intent(context, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra("screenshot", getScreenshotUri(shot))
+            }
+            hide()
+            context.startActivity(startIntent)
         }
-        hide()
-        context.startActivity(startIntent)
     }
 
     private fun getScreenshotUri(bitmap: Bitmap): Uri {

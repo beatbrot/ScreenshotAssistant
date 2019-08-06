@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -17,7 +16,7 @@ const val AUTHORITY_NAME = "de.beatbrot.screenshotassistant.fileprovider"
 const val MIME_TYPE = "image/jpeg"
 
 class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(application) {
-    val uri :MutableLiveData<Uri> = MutableLiveData<Uri>()
+    val uri: MutableLiveData<Uri> = MutableLiveData()
 
     private val _shareIntent: MutableLiveData<Intent> = MutableLiveData()
     val shareIntent: LiveData<Intent>
