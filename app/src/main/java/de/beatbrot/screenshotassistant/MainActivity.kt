@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         initViewModel()
 
         origImage = intent.getParcelableExtra("screenshot")
+            ?: throw IllegalArgumentException("No screenshot provided to activity")
 
         viewModel.uri.postValue(origImage)
     }

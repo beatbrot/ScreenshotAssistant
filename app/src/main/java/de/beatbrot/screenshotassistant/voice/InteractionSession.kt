@@ -34,7 +34,7 @@ class InteractionSession(context: Context) : VoiceInteractionSession(context) {
         val scrDir = File(context.cacheDir, "screenshots")
         val scrFile = File(scrDir, "scr.jpg")
 
-        scrFile.parentFile.mkdir()
+        scrDir.mkdir()
         if (scrFile.exists()) {
             scrFile.delete()
         }

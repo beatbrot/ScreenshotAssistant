@@ -50,7 +50,7 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
         val scrDir = File(context.filesDir, "screenshots")
         val scrFile = File(scrDir, "scr_cropped.jpg")
 
-        scrFile.parentFile.mkdir()
+        scrDir.mkdir()
         if (scrFile.exists()) {
             scrFile.delete()
         }
