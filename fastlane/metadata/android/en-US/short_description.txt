@@ -1,0 +1,1 @@
+An assistant app for creating, cropping and sharing screenshots
