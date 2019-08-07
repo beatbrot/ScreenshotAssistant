@@ -21,7 +21,7 @@
 - [See it in action](#see-it-in-action)
 - [Setup Guide](#setup-guide)
 - [Features](#features)
-- [Credits:](#credits)
+- [Credits](#credits)
 
 ## See it in action
 
