@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
@@ -53,10 +55,29 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.uri.observe(this, Observer { newUri ->
             screenShot.setImageUriAsync(newUri)
+            animateImageView()
         })
 
         viewModel.shareIntent.observe(this, Observer { intent ->
             startActivity(Intent.createChooser(intent, "Sharing..."))
         })
+    }
+
+    private fun animateImageView() {
+        val startValue = 1.3F
+        screenShot?.apply {
+            scaleX = startValue
+            scaleY = startValue
+            alpha = 0.5F
+
+            visibility = View.VISIBLE
+
+            animate()
+                .scaleX(1F)
+                .scaleY(1F)
+                .alpha(1F)
+                .setInterpolator(OvershootInterpolator())
+                .start()
+        }
     }
 }
