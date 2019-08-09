@@ -5,19 +5,24 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.service.voice.VoiceInteractionSession
+import android.widget.Toast
 import de.beatbrot.screenshotassistant.MainActivity
+import de.beatbrot.screenshotassistant.R
 import java.io.File
 import java.io.FileOutputStream
 
 class InteractionSession(context: Context) : VoiceInteractionSession(context) {
     override fun onHandleScreenshot(screenshot: Bitmap?) {
-        screenshot?.let { shot ->
+        if (screenshot != null) {
             val startIntent = Intent(context, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                putExtra("screenshot", getScreenshotUri(shot))
+                putExtra("screenshot", getScreenshotUri(screenshot))
             }
             hide()
             context.startActivity(startIntent)
+        } else {
+            Toast.makeText(context, R.string.enable_screenshot, Toast.LENGTH_SHORT).show()
+            hide()
         }
     }
 

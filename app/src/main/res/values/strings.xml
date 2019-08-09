@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Screenshot Assistant</string>
-    <string name="copyright">© beatbrot 2019</string>
+    <string name="copyright" translatable="false">© beatbrot 2019</string>
     <string name="about">About</string>
     <string name="github" translatable="false">GitHub</string>
     <string name="apache_2" translatable="false">Apache 2.0</string>
@@ -8,4 +8,6 @@
     <string name="version">Version</string>
     <string name="more">More</string>
     <string name="error_no_screenshot">Error: Screenshot could not be captured</string>
+    <string name="sharebear_screenshotter_activity_label">Share Screenshot</string>
+    <string name="enable_screenshot">Screenshot could not be taken. Please enable \"Use screenshot\" in assist settings</string>
 </resources>

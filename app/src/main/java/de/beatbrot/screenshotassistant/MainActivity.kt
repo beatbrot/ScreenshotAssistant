@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             popMenu.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.about_item) {
                     startActivity(Intent(baseContext, AboutActivity::class.java))
-                    //startAboutMenu()
                 }
                 true
             }
