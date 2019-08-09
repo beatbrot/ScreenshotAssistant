@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Screenshot Assistant</string>
+    <string name="about">Über</string>
+    <string name="error_no_screenshot">Fehler: Screenshot konnte nicht aufgenommen werden</string>
+    <string name="license">Lizenz</string>
+    <string name="more">Mehr</string>
+    <string name="sharebear_screenshotter_activity_label">Screenshot teilen</string>
+    <string name="version">Version</string>
+    <string name="enable_screenshot">Screenshot konnte nicht aufgenommen werden. Bitte aktiere \"Screenshot verwenden\" in den Systemeinstellungen</string>
+</resources>
