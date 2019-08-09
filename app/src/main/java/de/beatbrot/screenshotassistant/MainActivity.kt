@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
@@ -14,17 +15,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: ScreenshotActivityViewModel
-    private lateinit var origImage: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUI()
         initViewModel()
 
-        origImage = intent.getParcelableExtra("screenshot")
-            ?: throw IllegalArgumentException("No screenshot provided to activity")
-
-        viewModel.uri.postValue(origImage)
+        val imgPath = intent.getParcelableExtra<Uri>("screenshot")
+        if (imgPath != null) {
+            viewModel.uri.postValue(imgPath)
+        } else {
+            Toast.makeText(baseContext, R.string.error_no_screenshot, Toast.LENGTH_SHORT).show()
+            finish()
+        }
     }
 
     private fun initUI() {
