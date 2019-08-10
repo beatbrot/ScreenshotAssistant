@@ -11,6 +11,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 const val AUTHORITY_NAME = "de.beatbrot.screenshotassistant.fileprovider"
 const val MIME_TYPE = "image/jpeg"
@@ -48,14 +50,24 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
 
     private fun createScreenshotFile(): File {
         val scrDir = File(context.filesDir, "screenshots")
-        val scrFile = File(scrDir, "scr_cropped.jpg")
+        val scrFile = File(scrDir, "Screenshot-${currentDateString()}.jpg")
 
         scrDir.mkdir()
-        if (scrFile.exists()) {
-            scrFile.delete()
-        }
+        scrDir.deleteContents()
         scrFile.createNewFile()
 
         return scrFile
     }
+
+    private fun currentDateString(): String {
+        val format = SimpleDateFormat("yyyy-MM-dd'-'HH-mm-ss", Locale.US)
+        return format.format(Date())
+    }
+
+    private fun File.deleteContents() {
+        listFiles()?.forEach { file ->
+            file.deleteRecursively()
+        }
+    }
+
 }
