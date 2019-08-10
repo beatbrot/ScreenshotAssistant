@@ -10,4 +10,5 @@
     <string name="error_no_screenshot">Error: Screenshot could not be captured</string>
     <string name="sharebear_screenshotter_activity_label">Share Screenshot</string>
     <string name="enable_screenshot">Screenshot could not be taken. Please enable \"Use screenshot\" in assist settings</string>
+    <string name="share_image">Share image…</string>
 </resources>

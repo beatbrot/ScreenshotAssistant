@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.shareIntent.observe(this, Observer { intent ->
-            startActivity(Intent.createChooser(intent, "Sharing..."))
+            startActivity(Intent.createChooser(intent, baseContext.getString(R.string.share_image)))
         })
     }
 
