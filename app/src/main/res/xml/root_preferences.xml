@@ -17,27 +17,23 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="Images">
+    <SeekBarPreference
+        android:defaultValue="100"
+        android:icon="@drawable/ic_grade_unfocused_24dp"
+        android:key="image_quality"
+        android:max="100"
+        android:title="Image Quality"
+        app:adjustable="true"
+        app:min="0"
+        app:showSeekBarValue="true" />
 
-        <SeekBarPreference
-            android:defaultValue="100"
-            android:key="image_quality"
-            android:max="100"
-            android:title="Image Quality"
-            app:adjustable="true"
-            app:min="0"
-            android:icon="@drawable/ic_grade_unfocused_24dp"
-            app:showSeekBarValue="true" />
-
-        <ListPreference
-            android:entries="@array/image_formats"
-            android:entryValues="@array/image_formats"
-            android:defaultValue="JPEG"
-            app:icon="@drawable/ic_format_shapes_unfocused_24dp"
-            android:key="image_format"
-            app:useSimpleSummaryProvider="true"
-            android:title="Image Format" />
-
-    </PreferenceCategory>
+    <ListPreference
+        android:defaultValue="JPEG"
+        android:entries="@array/image_formats"
+        android:entryValues="@array/image_formats"
+        android:key="image_format"
+        android:title="Image Format"
+        app:icon="@drawable/ic_format_shapes_unfocused_24dp"
+        app:useSimpleSummaryProvider="true" />
 
 </PreferenceScreen>

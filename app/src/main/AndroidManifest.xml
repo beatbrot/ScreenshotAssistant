@@ -12,11 +12,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:excludeFromRecents="true"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".MainActivity"
             android:excludeFromRecents="true"
             android:noHistory="true"

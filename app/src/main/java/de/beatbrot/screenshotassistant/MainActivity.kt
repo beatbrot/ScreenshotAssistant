@@ -10,8 +10,11 @@ import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import de.beatbrot.screenshotassistant.sheets.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
@@ -35,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     private fun initUI() {
         setContentView(R.layout.activity_main)
 
+        bottomSheet.visibility = View.GONE
+
         screenShot.setOnSetImageUriCompleteListener { view, _, _ ->
             view.cropRect = Rect(view.wholeImageRect)
         }
@@ -43,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             val popMenu = PopupMenu(baseContext, it)
             popMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.settings_item -> startActivity(SettingsActivity::class)
+                    R.id.settings_item -> showSettings()
                     R.id.about_item -> startActivity(AboutActivity::class)
                     else -> false
                 }
@@ -84,6 +89,19 @@ class MainActivity : AppCompatActivity() {
                 .setInterpolator(OvershootInterpolator())
                 .start()
         }
+    }
+
+    private fun showSettings(): Boolean {
+        val parms = bottomSheet.layoutParams as CoordinatorLayout.LayoutParams
+        val behav = parms.behavior as BottomSheetBehavior
+        behav.state = BottomSheetBehavior.STATE_COLLAPSED
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.bottomContainer, SettingsFragment())
+            .commit()
+        bottomSheet.visibility = View.VISIBLE
+        behav.state = BottomSheetBehavior.STATE_EXPANDED
+        behav.isHideable = true
+        return true
     }
 
     private fun <T : Activity> startActivity(clazz: KClass<T>): Boolean {
