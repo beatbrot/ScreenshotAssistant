@@ -12,12 +12,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:excludeFromRecents="true"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".MainActivity"
             android:excludeFromRecents="true"
-            android:noHistory="true">
-        </activity>
+            android:noHistory="true"
+            android:theme="@style/AppTheme.Translucent" />
         <activity
             android:name=".AboutActivity"
+            android:excludeFromRecents="true"
             android:theme="@style/AppTheme.AboutDialog" />
 
         <service
@@ -26,11 +32,11 @@
             <meta-data
                 android:name="android.voice_interaction"
                 android:resource="@xml/voice_interaction_service" />
+
             <intent-filter>
                 <action android:name="android.service.voice.VoiceInteractionService" />
             </intent-filter>
         </service>
-
         <service
             android:name=".voice.InteractionSessionService"
             android:permission="android.permission.BIND_VOICE_INTERACTION" />

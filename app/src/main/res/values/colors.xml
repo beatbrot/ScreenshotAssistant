@@ -9,5 +9,7 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
 
+
+    <color name="iconUnfocusedColor">#757575</color>
     <color name="itemBackground">#FFFFFF</color>
 </resources>

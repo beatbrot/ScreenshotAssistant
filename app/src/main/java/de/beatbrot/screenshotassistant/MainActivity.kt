@@ -1,5 +1,6 @@
 package de.beatbrot.screenshotassistant
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: ScreenshotActivityViewModel
@@ -40,10 +42,11 @@ class MainActivity : AppCompatActivity() {
         menuButton.setOnClickListener {
             val popMenu = PopupMenu(baseContext, it)
             popMenu.setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.about_item) {
-                    startActivity(Intent(baseContext, AboutActivity::class.java))
+                when (item.itemId) {
+                    R.id.settings_item -> startActivity(SettingsActivity::class)
+                    R.id.about_item -> startActivity(AboutActivity::class)
+                    else -> false
                 }
-                true
             }
             popMenu.menuInflater.inflate(R.menu.about_menu, popMenu.menu)
             popMenu.show()
@@ -81,5 +84,10 @@ class MainActivity : AppCompatActivity() {
                 .setInterpolator(OvershootInterpolator())
                 .start()
         }
+    }
+
+    private fun <T : Activity> startActivity(clazz: KClass<T>): Boolean {
+        startActivity(Intent(baseContext, clazz.java))
+        return true
     }
 }

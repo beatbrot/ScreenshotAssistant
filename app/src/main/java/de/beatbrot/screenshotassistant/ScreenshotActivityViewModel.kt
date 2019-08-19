@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import de.beatbrot.screenshotassistant.util.*
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -18,6 +19,7 @@ const val AUTHORITY_NAME = "de.beatbrot.screenshotassistant.fileprovider"
 const val MIME_TYPE = "image/jpeg"
 
 class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(application) {
+
     val uri: MutableLiveData<Uri> = MutableLiveData()
 
     private val _shareIntent: MutableLiveData<Intent> = MutableLiveData()
@@ -27,11 +29,17 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
     private val context: Context
         get() = getApplication<Application>().baseContext
 
+    private val imageFormat: Bitmap.CompressFormat
+        get() = context.sharedPrefs.imageFormat
+
+    private val imageQuality: Int
+        get() = context.sharedPrefs.imageQuality
+
     fun shareImage(croppedImage: Bitmap) {
         val croppedUri = getScreenshotUri(croppedImage)
 
         val intent = Intent(Intent.ACTION_SEND).apply {
-            type = MIME_TYPE
+            type = imageFormat.mimeType
             putExtra(Intent.EXTRA_STREAM, croppedUri)
         }
 
@@ -42,7 +50,7 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
         val scrFile = createScreenshotFile()
 
         FileOutputStream(scrFile).use { stream ->
-            croppedImage.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            croppedImage.compress(Bitmap.CompressFormat.JPEG, imageQuality, stream)
         }
 
         return FileProvider.getUriForFile(context, AUTHORITY_NAME, scrFile)
@@ -50,7 +58,10 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
 
     private fun createScreenshotFile(): File {
         val scrDir = File(context.filesDir, "screenshots")
-        val scrFile = File(scrDir, "Screenshot-${currentDateString()}.jpg")
+        val scrFile = File(
+            scrDir,
+            "Screenshot-${currentDateString()}.${imageFormat.fileExtension}"
+        )
 
         scrDir.mkdir()
         scrDir.deleteContents()
