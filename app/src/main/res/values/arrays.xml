@@ -5,6 +5,10 @@
         <item>PNG</item>
         <item>WEBP</item>
     </string-array>
+    <integer-array name="colorpicker">
+        <item>0xF44336</item> <!--red-->
+        <item>0x4CAF50</item> <!--green-->
+    </integer-array>
 
 
 </resources>
