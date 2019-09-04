@@ -7,22 +7,30 @@ import androidx.lifecycle.ViewModel
 import de.beatbrot.screenshotassistant.util.liveDataOf
 
 class DrawSettingsViewModel : ViewModel() {
+    val editingMode = liveDataOf(DrawMode.PEN)
+
     val penColor = liveDataOf(Color.BLACK)
     val markerColor = liveDataOf(Color.YELLOW)
 
-    val editingMode = liveDataOf(DrawMode.PEN)
-
     val strokeColor = MediatorLiveData<Int>().apply {
         addSource(penColor) { newValue ->
-            value = newValue
+            if (editingMode.value == DrawMode.PEN) {
+                value = newValue
+            }
         }
         addSource(markerColor) { newValue ->
-            value = newValue
+            if (editingMode.value == DrawMode.MARKER) {
+                value = newValue
+            }
         }
         addSource(editingMode) { drawMode ->
             value = when (drawMode) {
-                DrawMode.PEN -> penColor.value
-                DrawMode.MARKER -> markerColor.value
+                DrawMode.PEN -> {
+                    penColor.value
+                }
+                DrawMode.MARKER -> {
+                    markerColor.value
+                }
                 else -> value
             }
         }

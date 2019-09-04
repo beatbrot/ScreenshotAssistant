@@ -13,9 +13,9 @@ class ImageButtonGroup @JvmOverloads constructor(
 
     var selectedElement: View? = null
         set(value) {
-            field?.background = null
+            field?.isSelected = false
             field = value
-            field?.background = context.getDrawable(R.drawable.rounded_corner_bg)
+            field?.isSelected = true
             if (value != null) {
                 onSelectListener?.invoke(value)
             }
@@ -35,6 +35,7 @@ class ImageButtonGroup @JvmOverloads constructor(
 
     override fun onViewAdded(child: View) {
         super.onViewAdded(child)
+        child.background = context.getDrawable(R.drawable.toggle_image_button_bg)
         child.setOnClickListener(clickHandler)
     }
 

@@ -18,8 +18,6 @@ import kotlinx.android.synthetic.main.sheet_colorsettings.*
 
 class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
 
-    override val title: String? = null
-
     override val isHideable = false
 
     var imagePainter: ImagePainterView? = null
@@ -39,17 +37,6 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
 
     private lateinit var viewModel: DrawSettingsViewModel
 
-    var selectedColor = Color.BLACK
-        set(value) {
-            field = value
-            if (this::colorPicker.isInitialized) {
-                colorPicker.setSelectedColor(value)
-            }
-            if (colorButton != null) {
-                initColorButton(colorButton, value)
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModel()
@@ -59,6 +46,9 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
         viewModel = ViewModelProviders.of(this)[DrawSettingsViewModel::class.java]
 
         viewModel.strokeColor.observe(this, Observer { newValue ->
+            if (newValue == null) {
+                return@Observer
+            }
             initColorButton(colorButton, newValue)
             colorPicker.setSelectedColor(newValue)
             if (viewModel.editingMode.value == DrawMode.PEN) {
@@ -83,7 +73,6 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
             setTitle("Pick a color")
             setDismissOnColorSelected(true)
             setColors(intArrayOf(Color.BLACK, Color.RED, Color.GREEN, Color.YELLOW))
-            setSelectedColor(selectedColor)
             setOnColorSelectedListener { positiveResult, color ->
                 if (positiveResult) {
                     if (viewModel.editingMode.value == DrawMode.PEN) {
@@ -98,10 +87,9 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
         undoButton.setOnClickListener { imagePainter?.undo() }
         redoButton.setOnClickListener { imagePainter?.redo() }
         penSelector.onSelectListener = { selection ->
-            if (selection == penModeButton) {
-                viewModel.editingMode.postValue(DrawMode.PEN)
-            } else {
-                viewModel.editingMode.postValue(DrawMode.MARKER)
+            viewModel.editingMode.value = when (selection) {
+                penModeButton -> DrawMode.PEN
+                else -> DrawMode.MARKER
             }
         }
 
