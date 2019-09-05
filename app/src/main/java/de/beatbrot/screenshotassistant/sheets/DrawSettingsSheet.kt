@@ -23,10 +23,10 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
     var imagePainter: ImagePainterView? = null
         set(value) {
             field = value
-            imagePainter?.setRedoStatusChangeListener {
+            field?.setRedoStatusChangeListener {
                 redoButton?.isEnabled = it
             }
-            imagePainter?.setUndoStatusChangeListener {
+            field?.setUndoStatusChangeListener {
                 undoButton?.isEnabled = it
             }
         }
@@ -69,6 +69,9 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        undoButton.isEnabled = imagePainter?.canUndo() ?: false
+        redoButton.isEnabled = imagePainter?.canRedo() ?: false
+
         colorPicker = SpectrumDialog.Builder(context).apply {
             setTitle("Pick a color")
             setDismissOnColorSelected(true)
@@ -86,10 +89,13 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
 
         undoButton.setOnClickListener { imagePainter?.undo() }
         redoButton.setOnClickListener { imagePainter?.redo() }
-        penSelector.onSelectListener = { selection ->
-            viewModel.editingMode.value = when (selection) {
-                penModeButton -> DrawMode.PEN
-                else -> DrawMode.MARKER
+        penSelector.setToggled(R.id.draw_mode, true)
+        penSelector.onToggledListener = { _, toggle, selected ->
+            if (selected) {
+                viewModel.editingMode.value = when (toggle.id) {
+                    R.id.draw_mode -> DrawMode.PEN
+                    else -> DrawMode.MARKER
+                }
             }
         }
 
@@ -98,7 +104,7 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
 
 
     private fun initColorButton(view: View, @ColorInt color: Int) {
-        view.background = ShapeDrawable(OvalShape()).apply {
+        view.foreground = ShapeDrawable(OvalShape()).apply {
             intrinsicHeight = 20
             intrinsicWidth = 20
             bounds = Rect(0, 0, 20, 20)

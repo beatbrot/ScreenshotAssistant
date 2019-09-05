@@ -8,64 +8,69 @@
     <ImageButton
         android:id="@+id/undoButton"
         android:layout_width="wrap_content"
-        android:contentDescription="@string/undo"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/undo"
         android:padding="8dp"
         android:src="@drawable/ic_chevron_left_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/button_color" />
 
     <ImageButton
         android:id="@+id/redoButton"
         android:layout_width="wrap_content"
-        android:contentDescription="@string/redo"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/redo"
         android:padding="8dp"
         android:src="@drawable/ic_chevron_right_black_24dp"
+        app:tint="@color/button_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/undoButton"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <de.beatbrot.screenshotassistant.view.ImageButtonGroup
+    <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
         android:id="@+id/penSelector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
+        app:allowDeselection="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/colorButton"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/draw_modes"
+        app:multipleSelection="false"
+        app:toggleMode="even">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:contentDescription="@string/pen"
-            android:layout_height="wrap_content"
-            android:id="@+id/penModeButton"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="8dp"
-            android:src="@drawable/ic_pencil_black_24dp" />
+        <!--        <ImageButton-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:contentDescription="@string/pen"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:id="@+id/penModeButton"-->
+        <!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+        <!--            android:padding="8dp"-->
+        <!--            android:src="@drawable/ic_pencil_black_24dp" />-->
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:contentDescription="@string/marker"
-            android:layout_height="wrap_content"
-            android:id="@+id/markerModeButton"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="8dp"
-            android:src="@drawable/ic_marker_24dp" />
-    </de.beatbrot.screenshotassistant.view.ImageButtonGroup>
+        <!--        <ImageButton-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:contentDescription="@string/marker"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:id="@+id/markerModeButton"-->
+        <!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+        <!--            android:padding="8dp"-->
+        <!--            android:src="@drawable/ic_marker_24dp" />-->
+    </com.savvyapps.togglebuttonlayout.ToggleButtonLayout>
 
     <View
         android:id="@+id/colorButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -77,8 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:contentDescription="@string/done"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/done"
         android:padding="8dp"
         android:src="@drawable/ic_check_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
