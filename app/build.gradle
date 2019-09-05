@@ -5,12 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "de.beatbrot.screenshotassistant"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -37,7 +37,7 @@ dependencies {
     implementation "androidx.preference:preference:1.1.0-rc01"
     implementation "androidx.preference:preference-ktx:1.1.0-rc01"
 
-    implementation 'com.google.android.material:material:1.1.0-alpha09'
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
 
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'com.github.daniel-stoneuk:material-about-library:2.4.2'
@@ -54,4 +54,3 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
-}
