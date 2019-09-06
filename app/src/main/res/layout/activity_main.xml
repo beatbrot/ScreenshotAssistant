@@ -63,11 +63,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="?attr/colorBackgroundFloating"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:srcCompat="@drawable/ic_pencil_black_24dp"
-        app:tint="@color/iconUnfocusedColor" />
+        app:tint="?attr/colorControlNormal" />
 
     <FrameLayout
         android:id="@+id/bottomSheet"
