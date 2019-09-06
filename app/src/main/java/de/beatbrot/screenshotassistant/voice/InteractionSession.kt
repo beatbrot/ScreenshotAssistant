@@ -30,14 +30,14 @@ class InteractionSession(context: Context) : VoiceInteractionSession(context) {
         val scrFile = createScreenshotFile()
 
         FileOutputStream(scrFile).use { stream ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 100, stream)
         }
         return Uri.fromFile(scrFile)
     }
 
     private fun createScreenshotFile(): File {
         val scrDir = File(context.cacheDir, "screenshots")
-        val scrFile = File(scrDir, "scr.jpg")
+        val scrFile = File(scrDir, "scr")
 
         scrDir.mkdir()
         if (scrFile.exists()) {

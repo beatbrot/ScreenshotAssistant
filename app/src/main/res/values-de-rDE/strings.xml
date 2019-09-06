@@ -8,4 +8,11 @@
     <string name="sharebear_screenshotter_activity_label">Screenshot teilen</string>
     <string name="version">Version</string>
     <string name="enable_screenshot">Screenshot konnte nicht aufgenommen werden. Bitte aktiere \"Screenshot verwenden\" in den Systemeinstellungen</string>
+    <string name="share_image">Bild teilen…</string>
+    <string name="title_sheet_settings">Einstellungen</string>
+    <string name="undo">Rückgängig</string>
+    <string name="redo">Wiederholen</string>
+    <string name="pen">Stift</string>
+    <string name="marker">Marker</string>
+    <string name="done">Fertig</string>
 </resources>

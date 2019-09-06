@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/draw_mode"
+        android:icon="@drawable/ic_pencil_black_24dp"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/mark_mode"
+        android:icon="@drawable/ic_marker_24dp"
+        tools:ignore="MenuTitle" />
+
+</menu>
