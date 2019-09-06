@@ -49,8 +49,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUI() {
         setContentView(R.layout.activity_main)
-
-        bottomSheet.visibility = View.GONE
+        val params = bottomSheet.layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior as BottomSheetBehavior
+        behavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         screenShot.setOnSetImageUriCompleteListener { view, _, _ ->
             view.cropRect = Rect(view.wholeImageRect)
@@ -151,20 +152,19 @@ class MainActivity : AppCompatActivity() {
             where T : Fragment, T : IBottomSheet {
         val params = bottomSheet.layoutParams as CoordinatorLayout.LayoutParams
         val behavior = params.behavior as BottomSheetBehavior
-        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        behavior.isHideable = true
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.bottomContainer, sheet)
-            .commit()
+            .commitNow()
+
         if (sheet.title != null) {
             bottomSheetHeader.visibility = View.VISIBLE
             bottomSheetHeader.text = sheet.title
         } else {
             bottomSheetHeader.visibility = View.GONE
         }
-        bottomSheet.visibility = View.VISIBLE
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        behavior.isHideable = sheet.isHideable
     }
 
     private fun <T : Activity> startActivity(clazz: KClass<T>): Boolean {

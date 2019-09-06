@@ -76,10 +76,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/white"
-            app:tint="@color/iconUnfocusedColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button"
-            app:srcCompat="@drawable/ic_pencil_black_24dp" />
+            app:srcCompat="@drawable/ic_pencil_black_24dp"
+            app:tint="@color/iconUnfocusedColor" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,8 +92,9 @@
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        tools:visibility="gone">
+        app:behavior_skipCollapsed="true"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
             android:id="@+id/bottomSheetHeader"
