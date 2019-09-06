@@ -10,25 +10,15 @@ import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import de.beatbrot.screenshotassistant.sheets.DrawSettingsSheet
-import de.beatbrot.screenshotassistant.sheets.IBottomSheet
 import de.beatbrot.screenshotassistant.sheets.ModalSettingsSheet
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: ScreenshotActivityViewModel
-
-    private val drawSettingsSheet = DrawSettingsSheet().apply {
-        onHideListener = {
-            switchState()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +36,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUI() {
         setContentView(R.layout.activity_main)
-        val params = bottomSheet.layoutParams as CoordinatorLayout.LayoutParams
-        val behavior = params.behavior as BottomSheetBehavior
-        behavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        (drawSheet as DrawSettingsSheet).let { sheet ->
+            sheet.onHideListener = { switchState() }
+            sheet.imagePainter = imagePainter
+        }
 
         screenShot.setOnSetImageUriCompleteListener { view, _, _ ->
             view.cropRect = Rect(view.wholeImageRect)
@@ -87,9 +79,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.editingMode.observe(this, Observer { newState ->
             when (newState) {
                 EditingMode.CROP -> {
-                    supportFragmentManager.beginTransaction()
-                        .remove(drawSettingsSheet)
-                        .commit()
+                    bottomSheet.visibility = View.GONE
                     imagePainter.visibility = View.INVISIBLE
                     screenShot.visibility = View.VISIBLE
                     if (imagePainter.drawable != null) {
@@ -135,33 +125,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showDrawSettings(): Boolean {
-        showBottomSheet(drawSettingsSheet)
-        drawSettingsSheet.imagePainter = imagePainter
+        bottomSheet.visibility = View.VISIBLE
         return true
     }
 
     private fun showSettings(): Boolean {
         ModalSettingsSheet().showNow(supportFragmentManager, "SETTINGS")
         return true
-    }
-
-    private fun <T> showBottomSheet(sheet: T)
-            where T : Fragment, T : IBottomSheet {
-        val params = bottomSheet.layoutParams as CoordinatorLayout.LayoutParams
-        val behavior = params.behavior as BottomSheetBehavior
-        behavior.isHideable = true
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.bottomContainer, sheet)
-            .commitNow()
-
-        if (sheet.title != null) {
-            bottomSheetHeader.visibility = View.VISIBLE
-            bottomSheetHeader.text = sheet.title
-        } else {
-            bottomSheetHeader.visibility = View.GONE
-        }
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun <T : Activity> startActivity(clazz: KClass<T>): Boolean {
