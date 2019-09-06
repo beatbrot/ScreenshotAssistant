@@ -6,14 +6,17 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import de.beatbrot.screenshotassistant.sheets.DrawSettingsSheet
 import de.beatbrot.screenshotassistant.sheets.ModalSettingsSheet
+import de.beatbrot.screenshotassistant.sheets.drawsettings.DrawSettingsSheet
+import de.beatbrot.screenshotassistant.util.OpenAnimationListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
@@ -79,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.editingMode.observe(this, Observer { newState ->
             when (newState) {
                 EditingMode.CROP -> {
-                    bottomSheet.visibility = View.GONE
+                    hideBottomSheet()
                     imagePainter.visibility = View.INVISIBLE
                     screenShot.visibility = View.VISIBLE
                     if (imagePainter.drawable != null) {
@@ -91,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                     screenShot.visibility = View.INVISIBLE
                     imagePainter.visibility = View.VISIBLE
                     imagePainter.setImageBitmap(screenShot.croppedImage)
-                    showDrawSettings()
+                    showBottomSheet()
                 }
                 else -> throw UnsupportedOperationException()
             }
@@ -124,9 +127,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDrawSettings(): Boolean {
-        bottomSheet.visibility = View.VISIBLE
-        return true
+    private fun showBottomSheet() {
+        if (bottomSheet.visibility == View.VISIBLE) {
+            return
+        }
+
+        val anim = AnimationUtils.loadAnimation(baseContext, R.anim.slide_up)
+        anim.setAnimationListener(object : OpenAnimationListener {
+            override fun onAnimationEnd(animation: Animation?) {
+                bottomSheet.visibility = View.VISIBLE
+            }
+        })
+        bottomSheet.startAnimation(anim)
+    }
+
+    private fun hideBottomSheet() {
+        if (bottomSheet.visibility != View.VISIBLE) {
+            return
+        }
+
+        val anim = AnimationUtils.loadAnimation(baseContext, R.anim.slide_down)
+        anim.setAnimationListener(object : OpenAnimationListener {
+            override fun onAnimationEnd(animation: Animation?) {
+                bottomSheet.visibility = View.GONE
+            }
+        })
+        bottomSheet.startAnimation(anim)
     }
 
     private fun showSettings(): Boolean {
