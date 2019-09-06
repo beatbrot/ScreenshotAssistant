@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import de.beatbrot.screenshotassistant.sheets.DrawSettingsSheet
 import de.beatbrot.screenshotassistant.sheets.IBottomSheet
-import de.beatbrot.screenshotassistant.sheets.SettingsSheet
+import de.beatbrot.screenshotassistant.sheets.ModalSettingsSheet
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
@@ -30,11 +30,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var settingsSheet: SettingsSheet
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        settingsSheet = SettingsSheet(baseContext)
         initUI()
         initViewModel()
 
@@ -144,7 +141,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSettings(): Boolean {
-        showBottomSheet(settingsSheet)
+        ModalSettingsSheet().showNow(supportFragmentManager, "SETTINGS")
         return true
     }
 
