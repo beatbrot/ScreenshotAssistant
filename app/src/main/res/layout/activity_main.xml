@@ -14,10 +14,7 @@
         android:id="@+id/editorStack"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,12 +23,7 @@
         <com.theartofdev.edmodo.cropper.CropImageView
             android:id="@+id/screenShot"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:layout_height="match_parent" />
 
         <de.beatbrot.imagepainter.view.ImagePainterView
             android:id="@+id/imagePainter"
@@ -77,12 +69,14 @@
         app:srcCompat="@drawable/ic_pencil_black_24dp"
         app:tint="@color/iconUnfocusedColor" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:clickable="true"
         android:elevation="8dp"
+        android:focusable="true"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,8 +85,8 @@
 
         <fragment
             android:id="@+id/drawSheet"
-            android:name="de.beatbrot.screenshotassistant.sheets.DrawSettingsSheet"
+            android:name="de.beatbrot.screenshotassistant.sheets.drawsettings.DrawSettingsSheet"
             android:layout_width="match_parent"
             android:layout_height="72dp" />
-    </LinearLayout>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

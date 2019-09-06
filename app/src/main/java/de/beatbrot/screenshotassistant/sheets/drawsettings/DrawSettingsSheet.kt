@@ -1,4 +1,4 @@
-package de.beatbrot.screenshotassistant.sheets
+package de.beatbrot.screenshotassistant.sheets.drawsettings
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -13,9 +13,7 @@ import de.beatbrot.imagepainter.view.ImagePainterView
 import de.beatbrot.screenshotassistant.R
 import kotlinx.android.synthetic.main.sheet_colorsettings.*
 
-class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
-
-    override val isHideable = false
+class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
 
     var imagePainter: ImagePainterView? = null
         set(value) {

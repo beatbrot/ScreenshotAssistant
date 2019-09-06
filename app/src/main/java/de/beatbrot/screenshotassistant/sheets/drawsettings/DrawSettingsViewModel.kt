@@ -1,4 +1,4 @@
-package de.beatbrot.screenshotassistant.sheets
+package de.beatbrot.screenshotassistant.sheets.drawsettings
 
 import android.graphics.Color
 import android.graphics.Paint
