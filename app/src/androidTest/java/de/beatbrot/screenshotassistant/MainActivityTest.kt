@@ -19,6 +19,7 @@ import de.beatbrot.screenshotassistant.custom.cropImageByHalf
 import de.beatbrot.screenshotassistant.custom.launchesActivity
 import org.hamcrest.Matchers.*
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -74,6 +75,7 @@ class MainActivityTest {
     }
 
     @Test
+    @Ignore("Messes with other tests")
     fun testShareOpens() {
         onView(withId(R.id.button))
             .perform(click())
@@ -113,9 +115,8 @@ class MainActivityTest {
             }
             createNewFile()
 
-            outputStream().apply {
-                write(buffer)
-                close()
+            outputStream().use { stream ->
+                stream.write(buffer)
             }
         }
 
