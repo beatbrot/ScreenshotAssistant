@@ -1,16 +1,13 @@
 package de.beatbrot.screenshotassistant.sheets
 
-import android.graphics.Color
-import android.graphics.Rect
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thebluealliance.spectrum.SpectrumDialog
 import de.beatbrot.imagepainter.view.ImagePainterView
 import de.beatbrot.screenshotassistant.R
@@ -49,7 +46,7 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
             if (newValue == null) {
                 return@Observer
             }
-            initColorButton(colorButton, newValue)
+            colorButton.color = newValue
             colorPicker.setSelectedColor(newValue)
             if (viewModel.editingMode.value == DrawMode.PEN) {
                 imagePainter?.strokeColor = newValue
@@ -75,7 +72,7 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
         colorPicker = SpectrumDialog.Builder(context).apply {
             setTitle("Pick a color")
             setDismissOnColorSelected(true)
-            setColors(intArrayOf(Color.BLACK, Color.RED, Color.GREEN, Color.YELLOW))
+            setColors(R.array.colorpicker)
             setOnColorSelectedListener { positiveResult, color ->
                 if (positiveResult) {
                     if (viewModel.editingMode.value == DrawMode.PEN) {
@@ -100,20 +97,16 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings), IBottomSheet {
         }
 
         doneButton.setOnClickListener { onHideListener?.invoke() }
-    }
-
-
-    private fun initColorButton(view: View, @ColorInt color: Int) {
-        view.foreground = ShapeDrawable(OvalShape()).apply {
-            intrinsicHeight = 20
-            intrinsicWidth = 20
-            bounds = Rect(0, 0, 20, 20)
-            paint.color = color
-        }
-        view.setOnClickListener { colorPicker.show() }
+        colorButton.setOnClickListener { colorPicker.show() }
     }
 
     private fun SpectrumDialog.Builder.show() {
         build().show(childFragmentManager, "COLOR_PICKER")
     }
+
+    private var FloatingActionButton.color: Int
+        get() = backgroundTintList?.defaultColor ?: throw NullPointerException()
+        set(value) {
+            backgroundTintList = ColorStateList.valueOf(value)
+        }
 }

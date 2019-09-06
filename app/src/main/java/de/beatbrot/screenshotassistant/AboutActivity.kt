@@ -10,20 +10,6 @@ import com.danielstone.materialaboutlibrary.items.MaterialAboutTitleItem
 import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
 import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 
-const val SCREENSHOT_ASSISTANT_GH = "beatbrot/ScreenshotAssistant"
-
-const val IMAGE_CROPPER_NAME = "Android Image Cropper"
-const val IMAGE_CROPPER_VERSION = "2.8.0"
-const val IMAGE_CROPPER_LICENSE =
-    "https://github.com/ArthurHub/Android-Image-Cropper/blob/master/LICENSE.txt"
-const val IMAGE_CROPPER_GH = "ArthurHub/Android-Image-Cropper"
-
-const val ABOUT_NAME = "material-about-library"
-const val ABOUT_VERSION = "2.4.2"
-const val ABOUT_LICENSE =
-    "https://github.com/daniel-stoneuk/material-about-library/blob/master/LICENSE"
-const val ABOUT_GH = "daniel-stoneuk/material-about-library"
-
 class AboutActivity : MaterialAboutActivity() {
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
         val mainCard = MaterialAboutCard.Builder()
@@ -35,29 +21,54 @@ class AboutActivity : MaterialAboutActivity() {
                 )
             )
             .addVersionItem(BuildConfig.VERSION_NAME)
-            .addGithubItem(SCREENSHOT_ASSISTANT_GH)
-            .build()
-
-        val cropper = MaterialAboutCard.Builder()
-            .title(IMAGE_CROPPER_NAME)
-            .addVersionItem(IMAGE_CROPPER_VERSION)
-            .addLicenseItem(R.string.apache_2, IMAGE_CROPPER_LICENSE)
-            .addGithubItem(IMAGE_CROPPER_GH)
-            .build()
-
-        val aboutLib = MaterialAboutCard.Builder()
-            .title(ABOUT_NAME)
-            .addVersionItem(ABOUT_VERSION)
-            .addLicenseItem(R.string.apache_2, ABOUT_LICENSE)
-            .addGithubItem(ABOUT_GH)
+            .addGithubItem("beatbrot/ScreenshotAssistant")
             .build()
 
         return MaterialAboutList.Builder()
             .addCard(mainCard)
-            .addCard(cropper)
-            .addCard(aboutLib)
+            .addCard(ImageCropper.createAboutCard())
+            .addCard(MaterialAboutLibrary.createAboutCard())
             .build()
     }
+
+    interface Library {
+        val name: String
+        val version: String
+
+        @get:StringRes
+        val license: Int
+
+        val licenseLink: String
+
+        val github: String
+    }
+
+    object ImageCropper : Library {
+        override val name = "Android Image Cropper"
+        override val version = "2.8.0"
+
+        override val license = R.string.apache_2
+        override val licenseLink =
+            "https://github.com/ArthurHub/Android-Image-Cropper/blob/master/LICENSE.txt"
+
+        override val github = "ArthurHub/Android-Image-Cropper"
+    }
+
+    object MaterialAboutLibrary : Library {
+        override val name = "material-about-library"
+        override val version = "2.4.2"
+        override val license = R.string.apache_2
+        override val licenseLink =
+            "https://github.com/daniel-stoneuk/material-about-library/blob/master/LICENSE"
+        override val github = "daniel-stoneuk/material-about-library"
+    }
+
+    private fun Library.createAboutCard() = MaterialAboutCard.Builder()
+        .title(name)
+        .addVersionItem(version)
+        .addLicenseItem(license, licenseLink)
+        .addGithubItem(github)
+        .build()
 
     private fun MaterialAboutCard.Builder.addVersionItem(version: String): MaterialAboutCard.Builder {
         addItem(

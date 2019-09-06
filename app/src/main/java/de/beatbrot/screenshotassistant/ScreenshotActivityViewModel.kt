@@ -34,13 +34,7 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
     private val imageQuality: Int
         get() = context.sharedPrefs.imageQuality
 
-    private val strokeColor: MutableLiveData<Int> = MutableLiveData()
-
-    val editingMode: MutableLiveData<EditingMode> = MutableLiveData()
-
-    init {
-        editingMode.postValue(EditingMode.CROP)
-    }
+    val editingMode: MutableLiveData<EditingMode> = liveDataOf(EditingMode.CROP)
 
     fun shareImage(croppedImage: Bitmap) {
         val croppedUri = getScreenshotUri(croppedImage)

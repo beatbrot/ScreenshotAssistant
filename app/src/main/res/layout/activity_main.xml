@@ -75,10 +75,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:clickable="true"
+            app:backgroundTint="@color/white"
+            app:tint="@color/iconUnfocusedColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button"
-            app:srcCompat="@drawable/ic_format_shapes_unfocused_24dp" />
+            app:srcCompat="@drawable/ic_pencil_black_24dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

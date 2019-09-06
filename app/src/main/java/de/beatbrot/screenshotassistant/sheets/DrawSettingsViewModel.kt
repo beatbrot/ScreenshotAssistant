@@ -10,7 +10,7 @@ class DrawSettingsViewModel : ViewModel() {
     val editingMode = liveDataOf(DrawMode.PEN)
 
     val penColor = liveDataOf(Color.BLACK)
-    val markerColor = liveDataOf(Color.YELLOW)
+    val markerColor = liveDataOf(-0x14C5) // Yellow
 
     val strokeColor = MediatorLiveData<Int>().apply {
         addSource(penColor) { newValue ->

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="@color/design_default_color_background">
+    android:background="@color/white">
 
     <ImageButton
         android:id="@+id/undoButton"
@@ -26,10 +26,10 @@
         android:contentDescription="@string/redo"
         android:padding="8dp"
         android:src="@drawable/ic_chevron_right_black_24dp"
-        app:tint="@color/button_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/undoButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/button_color" />
 
 
     <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
@@ -44,28 +44,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/draw_modes"
         app:multipleSelection="false"
-        app:toggleMode="even">
+        app:toggleMode="even" />
 
-        <!--        <ImageButton-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:contentDescription="@string/pen"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:id="@+id/penModeButton"-->
-        <!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-        <!--            android:padding="8dp"-->
-        <!--            android:src="@drawable/ic_pencil_black_24dp" />-->
-
-        <!--        <ImageButton-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:contentDescription="@string/marker"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:id="@+id/markerModeButton"-->
-        <!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-        <!--            android:padding="8dp"-->
-        <!--            android:src="@drawable/ic_marker_24dp" />-->
-    </com.savvyapps.togglebuttonlayout.ToggleButtonLayout>
-
-    <View
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/colorButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
