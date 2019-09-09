@@ -3,8 +3,7 @@
 </p>
 <h3 align="center">Screenshot assistant</h3>
 <div align="center">
-<img src="https://img.shields.io/bitrise/e35512dffe538a68?token=FeXeWy1tsL9L69wa9RFzCQ" alt="BitRise Status">
-<img src="https://img.shields.io/badge/status-active-success.svg" alt="Status"/>
+<img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fbeatbrot%2FScreenshotAssistant%2Fbadge&style=flat" /><img src="https://img.shields.io/badge/status-active-success.svg" alt="Status"/>
 <img src="https://img.shields.io/github/issues/beatbrot/ScreenshotAssistant" alt="Issues">
 <img alt="GitHub" src="https://img.shields.io/github/license/beatbrot/ScreenshotAssistant">
 </div>
