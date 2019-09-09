@@ -10,8 +10,8 @@ import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.*
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import androidx.test.uiautomator.UiDevice
 import de.beatbrot.screenshotassistant.custom.checkCropSuccessful
 import de.beatbrot.screenshotassistant.custom.containsImage
@@ -46,13 +46,13 @@ class MainActivityTest {
 
     @Test
     fun testActivityLaunches() {
-        onView(withId(R.id.screenShot))
+        onView(withId(R.id.cropView))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun testImageIsLoaded() {
-        onView(withId(R.id.screenShot))
+        onView(withId(R.id.cropView))
             .check(matches(containsImage()))
     }
 
@@ -69,7 +69,7 @@ class MainActivityTest {
 
     @Test
     fun testCroppingWorks() {
-        onView(withId(R.id.screenShot))
+        onView(withId(R.id.cropView))
             .perform(cropImageByHalf())
             .check(checkCropSuccessful())
     }
@@ -77,7 +77,7 @@ class MainActivityTest {
     @Test
     @Ignore("Messes with other tests")
     fun testShareOpens() {
-        onView(withId(R.id.button))
+        onView(withId(R.id.shareButton))
             .perform(click())
 
         intended(

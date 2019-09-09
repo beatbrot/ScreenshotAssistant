@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,7 +31,7 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
 
     private lateinit var colorPicker: SpectrumDialog.Builder
 
-    private lateinit var viewModel: DrawSettingsViewModel
+    private val viewModel by viewModels<DrawSettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +39,6 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this)[DrawSettingsViewModel::class.java]
-
         viewModel.strokeColor.observe(this, Observer { newValue ->
             if (newValue == null) {
                 return@Observer

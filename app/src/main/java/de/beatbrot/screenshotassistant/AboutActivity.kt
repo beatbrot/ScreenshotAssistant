@@ -107,5 +107,5 @@ class AboutActivity : MaterialAboutActivity() {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
-    override fun getActivityTitle() = baseContext.getString(R.string.about)
+    override fun getActivityTitle(): String = baseContext.getString(R.string.about)
 }

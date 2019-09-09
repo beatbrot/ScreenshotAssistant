@@ -15,13 +15,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintBottom_toTopOf="@id/shareButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.theartofdev.edmodo.cropper.CropImageView
-            android:id="@+id/screenShot"
+            android:id="@+id/cropView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button"
+        android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -65,7 +65,7 @@
         android:layout_marginBottom="16dp"
         app:backgroundTint="?attr/colorBackgroundFloating"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/shareButton"
         app:srcCompat="@drawable/ic_pencil_black_24dp"
         app:tint="?attr/colorControlNormal" />
 

@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: ScreenshotActivityViewModel
+    private val viewModel by viewModels<ScreenshotActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             sheet.imagePainter = imagePainter
         }
 
-        screenShot.setOnSetImageUriCompleteListener { view, _, _ ->
+        cropView.setOnSetImageUriCompleteListener { view, _, _ ->
             view.cropRect = Rect(view.wholeImageRect)
         }
 
@@ -64,14 +65,12 @@ class MainActivity : AppCompatActivity() {
             popMenu.show()
         }
 
-        button.setOnClickListener { viewModel.shareImage(screenShot.croppedImage) }
+        shareButton.setOnClickListener { viewModel.shareImage(cropView.croppedImage) }
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this)[ScreenshotActivityViewModel::class.java]
-
         viewModel.uri.observe(this, Observer { newUri ->
-            screenShot.setImageUriAsync(newUri)
+            cropView.setImageUriAsync(newUri)
             animateImageView()
         })
 
@@ -84,16 +83,16 @@ class MainActivity : AppCompatActivity() {
                 EditingMode.CROP -> {
                     hideBottomSheet()
                     imagePainter.visibility = View.INVISIBLE
-                    screenShot.visibility = View.VISIBLE
+                    cropView.visibility = View.VISIBLE
                     if (imagePainter.drawable != null) {
-                        screenShot.setImageBitmap(imagePainter.exportImage())
-                        screenShot.cropRect = Rect(screenShot.wholeImageRect)
+                        cropView.setImageBitmap(imagePainter.exportImage())
+                        cropView.cropRect = Rect(cropView.wholeImageRect)
                     }
                 }
                 EditingMode.PAINT -> {
-                    screenShot.visibility = View.INVISIBLE
+                    cropView.visibility = View.INVISIBLE
                     imagePainter.visibility = View.VISIBLE
-                    imagePainter.setImageBitmap(screenShot.croppedImage)
+                    imagePainter.setImageBitmap(cropView.croppedImage)
                     showBottomSheet()
                 }
                 else -> throw UnsupportedOperationException()
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun animateImageView() {
         val startValue = 1.3F
-        screenShot?.apply {
+        cropView?.apply {
             scaleX = startValue
             scaleY = startValue
             alpha = 0.5F
