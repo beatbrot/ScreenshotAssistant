@@ -26,8 +26,8 @@ class AboutActivity : MaterialAboutActivity() {
 
         return MaterialAboutList.Builder()
             .addCard(mainCard)
-            .addCard(ImageCropper.createAboutCard())
-            .addCard(MaterialAboutLibrary.createAboutCard())
+            .addCard(ImageCropper.createCard())
+            .addCard(MaterialAboutLibrary.createCard())
             .build()
     }
 
@@ -63,7 +63,7 @@ class AboutActivity : MaterialAboutActivity() {
         override val github = "daniel-stoneuk/material-about-library"
     }
 
-    private fun Library.createAboutCard() = MaterialAboutCard.Builder()
+    private fun Library.createCard() = MaterialAboutCard.Builder()
         .title(name)
         .addVersionItem(version)
         .addLicenseItem(license, licenseLink)
