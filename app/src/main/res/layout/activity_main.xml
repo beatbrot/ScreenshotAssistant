@@ -28,8 +28,7 @@
         <de.beatbrot.imagepainter.view.ImagePainterView
             android:id="@+id/imagePainter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible" />
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 

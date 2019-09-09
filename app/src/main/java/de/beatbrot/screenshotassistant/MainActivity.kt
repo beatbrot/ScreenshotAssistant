@@ -5,23 +5,25 @@ import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.AnimRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import de.beatbrot.screenshotassistant.sheets.ModalSettingsSheet
 import de.beatbrot.screenshotassistant.sheets.drawsettings.DrawSettingsSheet
 import de.beatbrot.screenshotassistant.util.OpenAnimationListener
+import de.beatbrot.screenshotassistant.util.tryExport
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val viewModel by viewModels<ScreenshotActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,18 +33,27 @@ class MainActivity : AppCompatActivity() {
 
         val imgPath = intent.getParcelableExtra<Uri>("screenshot")
         if (imgPath != null) {
-            viewModel.uri.postValue(imgPath)
+            loadInitialImage(imgPath)
         } else {
             Toast.makeText(baseContext, R.string.error_no_screenshot, Toast.LENGTH_SHORT).show()
             finish()
         }
     }
 
-    private fun initUI() {
-        setContentView(R.layout.activity_main)
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!isFinishing) {
+            viewModel.currentBitmap.value = when (viewModel.editingMode.value) {
+                EditingMode.CROP -> cropView.croppedImage
+                EditingMode.PAINT -> imagePainter.exportImage()
+                else -> throw IllegalStateException("No editingmode is set")
+            }
+        }
+    }
 
+    private fun initUI() {
         (drawSheet as DrawSettingsSheet).let { sheet ->
-            sheet.onHideListener = { switchState() }
+            sheet.onHideListener = { viewModel.editingMode.value = EditingMode.CROP }
             sheet.imagePainter = imagePainter
         }
 
@@ -50,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             view.cropRect = Rect(view.wholeImageRect)
         }
 
-        drawButton.setOnClickListener { switchState() }
+        drawButton.setOnClickListener { viewModel.editingMode.value = EditingMode.PAINT }
 
         menuButton.setOnClickListener {
             val popMenu = PopupMenu(baseContext, it)
@@ -69,9 +80,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel.uri.observe(this, Observer { newUri ->
-            cropView.setImageUriAsync(newUri)
-            animateImageView()
+        viewModel.currentBitmap.observe(this, Observer { newBitmap ->
+            when (viewModel.editingMode.value) {
+                EditingMode.CROP -> {
+                    cropView.setImageBitmap(newBitmap)
+                    cropView.cropRect = Rect(cropView.wholeImageRect)
+                    animateImageView(cropView)
+                }
+                EditingMode.PAINT -> {
+                    imagePainter.setImageBitmap(newBitmap)
+                    animateImageView(imagePainter)
+                }
+            }
         })
 
         viewModel.shareIntent.observe(this, Observer { intent ->
@@ -82,17 +102,18 @@ class MainActivity : AppCompatActivity() {
             when (newState) {
                 EditingMode.CROP -> {
                     hideBottomSheet()
-                    imagePainter.visibility = View.INVISIBLE
+                    imagePainter.visibility = View.GONE
                     cropView.visibility = View.VISIBLE
                     if (imagePainter.drawable != null) {
-                        cropView.setImageBitmap(imagePainter.exportImage())
-                        cropView.cropRect = Rect(cropView.wholeImageRect)
+                        viewModel.currentBitmap.value = imagePainter.exportImage()
                     }
                 }
                 EditingMode.PAINT -> {
-                    cropView.visibility = View.INVISIBLE
+                    cropView.visibility = View.GONE
                     imagePainter.visibility = View.VISIBLE
-                    imagePainter.setImageBitmap(cropView.croppedImage)
+                    cropView.tryExport()?.let {
+                        viewModel.currentBitmap.value = it
+                    }
                     showBottomSheet()
                 }
                 else -> throw UnsupportedOperationException()
@@ -100,17 +121,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun switchState() {
-        if (viewModel.editingMode.value == EditingMode.CROP) {
-            viewModel.editingMode.postValue(EditingMode.PAINT)
-        } else {
-            viewModel.editingMode.postValue(EditingMode.CROP)
-        }
-    }
-
-    private fun animateImageView() {
+    private fun animateImageView(imageView: View) {
         val startValue = 1.3F
-        cropView?.apply {
+        imageView.apply {
             scaleX = startValue
             scaleY = startValue
             alpha = 0.5F
@@ -131,13 +144,9 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val anim = AnimationUtils.loadAnimation(baseContext, R.anim.slide_up)
-        anim.setAnimationListener(object : OpenAnimationListener {
-            override fun onAnimationEnd(animation: Animation?) {
-                bottomSheet.visibility = View.VISIBLE
-            }
-        })
-        bottomSheet.startAnimation(anim)
+        runAnimation(bottomSheet, R.anim.slide_up) {
+            bottomSheet.visibility = View.VISIBLE
+        }
     }
 
     private fun hideBottomSheet() {
@@ -145,13 +154,22 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val anim = AnimationUtils.loadAnimation(baseContext, R.anim.slide_down)
+        runAnimation(bottomSheet, R.anim.slide_down) {
+            bottomSheet.visibility = View.GONE
+        }
+    }
+
+    private inline fun runAnimation(
+        view: View, @AnimRes animRes: Int,
+        crossinline onDone: () -> Unit
+    ) {
+        val anim = AnimationUtils.loadAnimation(baseContext, animRes)
         anim.setAnimationListener(object : OpenAnimationListener {
             override fun onAnimationEnd(animation: Animation?) {
-                bottomSheet.visibility = View.GONE
+                onDone()
             }
         })
-        bottomSheet.startAnimation(anim)
+        view.startAnimation(anim)
     }
 
     private fun showSettings(): Boolean {
@@ -162,5 +180,12 @@ class MainActivity : AppCompatActivity() {
     private fun <T : Activity> startActivity(clazz: KClass<T>): Boolean {
         startActivity(Intent(baseContext, clazz.java))
         return true
+    }
+
+    private fun loadInitialImage(uri: Uri) {
+        if (viewModel.currentBitmap.value == null) {
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+            viewModel.currentBitmap.value = bitmap
+        }
     }
 }

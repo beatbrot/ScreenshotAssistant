@@ -19,7 +19,6 @@ const val AUTHORITY_NAME = "de.beatbrot.screenshotassistant.fileprovider"
 const val MIME_TYPE = "image/jpeg"
 
 class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(application) {
-    val uri: MutableLiveData<Uri> = MutableLiveData()
 
     private val _shareIntent: MutableLiveData<Intent> = MutableLiveData()
     val shareIntent: LiveData<Intent>
@@ -34,7 +33,9 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
     private val imageQuality: Int
         get() = context.sharedPrefs.imageQuality
 
-    val editingMode: MutableLiveData<EditingMode> = liveDataOf(EditingMode.CROP)
+    val editingMode = liveDataOf(EditingMode.CROP)
+
+    val currentBitmap = MutableLiveData<Bitmap>()
 
     fun shareImage(croppedImage: Bitmap) {
         val croppedUri = getScreenshotUri(croppedImage)
@@ -81,6 +82,4 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
             file.deleteRecursively()
         }
     }
-
-
 }
