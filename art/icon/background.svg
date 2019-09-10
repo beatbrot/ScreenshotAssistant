@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="SVGRoot" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="linearGradient1930" x2="256" y1="256" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#bf0574" offset="0" />
+            <stop stop-color="#ff6910" offset="1" />
+        </linearGradient>
+    </defs>
+    <rect width="256" height="256" fill="url(#linearGradient1930)" />
+</svg>

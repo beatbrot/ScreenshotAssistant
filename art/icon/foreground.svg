@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="SVGRoot" version="1.1" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="linearGradient1930" x2="256" y1="256"
+            gradientTransform="matrix(.42188 0 0 .42188 -2.1094e-6 -2.1094e-6)"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#bf0574" offset="0" />
+            <stop stop-color="#ff6910" offset="1" />
+        </linearGradient>
+    </defs>
+    <g display="none">
+        <rect width="108" height="108" fill="url(#linearGradient1930)" stroke-width=".42188" />
+    </g>
+    <path d="m66.828 33.219-1.3281 38.594-24.234 3.075 33.109 33.116 33.625-0.00391v-33.648z"
+        fill-opacity=".19159" />
+    <g>
+        <g transform="matrix(2,0,0,2,30,30)">
+            <path d="m0 0h24v24h-24z" fill="none" />
+            <path
+                d="m17 1.01-10-0.01c-1.1 0-1.99 0.9-1.99 2v18c0 1.1 0.89 2 1.99 2h10c1.1 0 2-0.9 2-2v-18c0-1.1-0.9-1.99-2-1.99zm0 17.99h-10v-14h10zm-4.2-5.78v1.75l3.2-2.99-3.2-2.98v1.7c-3.11 0.43-4.35 2.56-4.8 4.7 1.11-1.5 2.58-2.18 4.8-2.18z"
+                fill="#fff" />
+        </g>
+    </g>
+</svg>

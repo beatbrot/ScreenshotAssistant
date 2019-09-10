@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="720px" height="220px"
+    viewBox="0 0 720 220" version="1.1" id="SVGRoot"
+    inkscape:version="0.92.4 (5da689c313, 2019-01-14)" sodipodi:docname="banner.svg"
+    inkscape:export-filename="C:\Users\loych\Downloads\banner.png" inkscape:export-xdpi="2181.8181"
+    inkscape:export-ydpi="2181.8181">
+    <defs id="defs831">
+        <linearGradient gradientUnits="userSpaceOnUse"
+            gradientTransform="matrix(0.42188,0,0,0.42188,-2.1094e-6,-2.1094e-6)" y1="256" x2="256"
+            id="linearGradient1930">
+            <stop id="stop1571" offset="0" stop-color="#bf0574" />
+            <stop id="stop1573" offset="1" stop-color="#ff6910" />
+        </linearGradient>
+        <linearGradient inkscape:collect="always" xlink:href="#linearGradient1930"
+            id="linearGradient2170" x1="0" y1="110" x2="720" y2="110"
+            gradientUnits="userSpaceOnUse" />
+        <linearGradient inkscape:collect="always" xlink:href="#linearGradient1930"
+            id="linearGradient2186" gradientUnits="userSpaceOnUse"
+            gradientTransform="matrix(0.42188,0,0,0.42188,-2.1094e-6,-2.1094e-6)" y1="256"
+            x2="256" />
+    </defs>
+    <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0"
+        inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="2.0113259"
+        inkscape:cx="180.96997" inkscape:cy="167.19477" inkscape:document-units="px"
+        inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1920"
+        inkscape:window-height="1017" inkscape:window-x="-8" inkscape:window-y="-8"
+        inkscape:window-maximized="1" inkscape:snap-page="true" />
+    <metadata id="metadata834">
+        <rdf:RDF>
+            <cc:Work rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                <dc:title />
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <g inkscape:label="BG" inkscape:groupmode="layer" id="layer1">
+        <rect
+            style="fill:url(#linearGradient2170);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+            id="rect1419" width="720" height="220" x="0" y="0" />
+    </g>
+    <g inkscape:groupmode="layer" id="layer2" inkscape:label="Font">
+        <text xml:space="preserve"
+            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:53.33333206px;line-height:0.89999998;font-family:'Roboto Slab';-inkscape-font-specification:'Roboto Slab Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none"
+            x="270.65234" y="106.03905" id="text1441"><tspan
+         sodipodi:role="line"
+         id="tspan1439"
+         x="270.65234"
+         y="106.03905">Screenshot</tspan>
+            <tspan sodipodi:role="line" x="270.65234" y="154.03905" id="tspan841">Assistant</tspan></text>
+    </g>
+    <g inkscape:groupmode="layer" id="layer4" inkscape:label="VecLogo">
+        <g id="g2162" transform="translate(166.27473,55.999999)">
+            <g id="g1580" display="none" style="display:none">
+                <rect id="rect1578" height="108" width="108" x="0" y="0"
+                    style="fill:url(#linearGradient2186);stroke-width:0.42188001" />
+            </g>
+            <g transform="matrix(2.25,0,0,2.25,-67.499999,-67.499999)" id="g1590">
+                <g id="g1588" transform="matrix(2,0,0,2,30,30)">
+                    <path style="fill:none" inkscape:connector-curvature="0" id="path1584"
+                        d="M 0,0 H 24 V 24 H 0 Z" />
+                    <path style="fill:#ffffff" inkscape:connector-curvature="0" id="path1586"
+                        d="M 17,1.01 7,1 C 5.9,1 5.01,1.9 5.01,3 v 18 c 0,1.1 0.89,2 1.99,2 h 10 c 1.1,0 2,-0.9 2,-2 V 3 C 19,1.9 18.1,1.01 17,1.01 Z M 17,19 H 7 V 5 h 10 z m -4.2,-5.78 v 1.75 L 16,11.98 12.8,9 v 1.7 c -3.11,0.43 -4.35,2.56 -4.8,4.7 1.11,-1.5 2.58,-2.18 4.8,-2.18 z" />
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
