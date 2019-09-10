@@ -2,7 +2,9 @@ package de.beatbrot.screenshotassistant
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
+import android.os.Bundle
 import androidx.annotation.StringRes
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
@@ -11,6 +13,16 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
 import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 
 class AboutActivity : MaterialAboutActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (isNightModeActive) {
+            setTheme(R.style.AppTheme_AboutDialog_Dark)
+        } else {
+            setTheme(R.style.AppTheme_AboutDialog)
+        }
+        super.onCreate(savedInstanceState)
+    }
+
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
         val mainCard = MaterialAboutCard.Builder()
             .addItem(
@@ -30,6 +42,12 @@ class AboutActivity : MaterialAboutActivity() {
             .addCard(MaterialAboutLibrary.createCard())
             .build()
     }
+
+    private val isNightModeActive: Boolean
+        get() {
+            val uiMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            return uiMode == Configuration.UI_MODE_NIGHT_YES
+        }
 
     interface Library {
         val name: String
