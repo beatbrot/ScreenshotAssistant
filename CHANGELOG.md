@@ -5,7 +5,7 @@
 - ✏️ Paint tools
 - 🇩🇪 Added german translation
 - ⚙️ Added settings for image format and quality
-- 🌙 Complete support for darkmode
+- 🌙 Complete support for dark mode
 
 ### BugFixes
 

@@ -7,7 +7,6 @@ import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thebluealliance.spectrum.SpectrumDialog
 import de.beatbrot.imagepainter.view.ImagePainterView
@@ -69,7 +68,7 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
         colorPicker = SpectrumDialog.Builder(context).apply {
             setTitle("Pick a color")
             setDismissOnColorSelected(true)
-            setColors(R.array.colorpicker)
+            setColors(R.array.colorPicker)
             setOnColorSelectedListener { positiveResult, color ->
                 if (positiveResult) {
                     if (viewModel.editingMode.value == DrawMode.PEN) {

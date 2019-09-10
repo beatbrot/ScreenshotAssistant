@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             viewModel.currentBitmap.value = when (viewModel.editingMode.value) {
                 EditingMode.CROP -> cropView.croppedImage
                 EditingMode.PAINT -> imagePainter.exportImage()
-                else -> throw IllegalStateException("No editingmode is set")
+                else -> throw IllegalStateException("No editing mode is set")
             }
         }
     }

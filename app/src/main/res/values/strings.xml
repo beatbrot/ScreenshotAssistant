@@ -8,14 +8,11 @@
     <string name="version">Version</string>
     <string name="more">More</string>
     <string name="error_no_screenshot">Error: Screenshot could not be captured</string>
-    <string name="sharebear_screenshotter_activity_label">Share Screenshot</string>
     <string name="enable_screenshot">Screenshot could not be taken. Please enable \"Use screenshot\" in assist settings</string>
-    <string name="share_image">Share image…</string>
+    <string name="share_image">Share screenshot…</string>
     <string name="title_sheet_settings">Settings</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
-    <string name="pen">Pen</string>
-    <string name="marker">Marker</string>
     <string name="done">Done</string>
 
 </resources>
