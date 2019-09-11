@@ -2,25 +2,27 @@ package de.beatbrot.screenshotassistant.sheets.drawsettings
 
 import android.graphics.Color
 import android.graphics.Paint
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.core.executor.ArchTaskExecutor
+import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 class DrawSettingsViewModelTest {
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: DrawSettingsViewModel
 
     private val alibiObserver: Observer<Any> = Observer { }
 
+    init {
+        ArchTaskExecutor.getInstance().setDelegate(TestExecutor())
+    }
+
     @Before
     fun initVM() {
-        //We need to observe everythign we want to access with .value
+        //We need to observe everything we want to access with .value
         viewModel = DrawSettingsViewModel().apply {
             strokeColor.observeForever(alibiObserver)
             editingMode.observeForever(alibiObserver)
@@ -60,6 +62,7 @@ class DrawSettingsViewModelTest {
         assertLDEquals(Color.BLACK, viewModel.penColor)
         viewModel.markerColor.value = Color.MAGENTA
         assertLDEquals(Color.BLACK, viewModel.penColor)
+        assertLDEquals(Color.BLACK, viewModel.penColor)
 
         viewModel.editingMode.value = DrawMode.MARKER
         assertLDEquals(Color.MAGENTA, viewModel.markerColor)
@@ -74,5 +77,13 @@ class DrawSettingsViewModelTest {
         } catch (err: AssertionError) {
             throw AssertionError(err.message, err.cause)
         }
+    }
+
+    private class TestExecutor : TaskExecutor() {
+        override fun executeOnDiskIO(r: Runnable) = r.run()
+
+        override fun isMainThread() = true
+
+        override fun postToMainThread(r: Runnable) = r.run()
     }
 }
