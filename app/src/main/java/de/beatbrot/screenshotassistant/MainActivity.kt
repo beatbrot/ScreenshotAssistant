@@ -1,10 +1,10 @@
 package de.beatbrot.screenshotassistant
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore.Images.Media.getBitmap
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -177,7 +177,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun loadInitialImage(uri: Uri) {
         if (viewModel.currentBitmap.value == null) {
-            viewModel.currentBitmap.value = getBitmap(contentResolver, uri)
+            val inputStream = contentResolver.openInputStream(uri)
+            viewModel.currentBitmap.value = BitmapFactory.decodeStream(inputStream)
         }
     }
 }
