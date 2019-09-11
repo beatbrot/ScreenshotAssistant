@@ -2,10 +2,13 @@ package de.beatbrot.screenshotassistant
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.graphics.Rect
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.provider.MediaStore.Images.Media.getBitmap
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -13,6 +16,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.AnimRes
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
@@ -184,8 +188,19 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun loadInitialImage(uri: Uri) {
         if (viewModel.currentBitmap.value == null) {
-            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+            val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                loadImageFromDecoder(uri)
+            } else {
+                @Suppress("DEPRECATION")
+                getBitmap(contentResolver, uri)
+            }
             viewModel.currentBitmap.value = bitmap
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun loadImageFromDecoder(uri: Uri): Bitmap {
+        val source = ImageDecoder.createSource(contentResolver, uri)
+        return ImageDecoder.decodeBitmap(source)
     }
 }
