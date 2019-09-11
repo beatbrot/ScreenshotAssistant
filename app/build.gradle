@@ -5,12 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "de.beatbrot.screenshotassistant"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 2
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -54,7 +54,6 @@ dependencies {
     implementation 'com.github.daniel-stoneuk:material-about-library:2.4.2'
 
     testImplementation 'androidx.test:core-ktx:1.2.0'
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation 'androidx.test.ext:junit-ktx:1.1.1'
     testImplementation 'androidx.test:runner:1.2.0'
     testImplementation 'androidx.test:rules:1.2.0'
