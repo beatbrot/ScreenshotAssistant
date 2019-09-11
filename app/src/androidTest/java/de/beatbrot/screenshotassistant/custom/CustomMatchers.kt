@@ -22,13 +22,13 @@ fun containsImage() = object : TypeSafeMatcher<View>(CropImageView::class.java) 
 fun <T : Activity> launchesActivity(activity: Class<T>) = object :
     TypeSafeMatcher<Intent>(Intent::class.java) {
     override fun matchesSafely(item: Intent?): Boolean {
-        val expdPkg = activity.`package`?.name ?: return false
+        val expectedPkg = activity.`package`?.name ?: return false
         val actPkg = item?.component?.packageName ?: return false
 
         val expdClass = activity.name
         val actClass = item.component?.className ?: return false
 
-        return expdPkg == actPkg && expdClass == actClass
+        return expectedPkg == actPkg && expdClass == actClass
     }
 
     override fun describeTo(description: Description?) {
