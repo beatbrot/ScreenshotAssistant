@@ -1,12 +1,8 @@
 package de.beatbrot.screenshotassistant
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.graphics.Rect
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore.Images.Media.getBitmap
 import android.view.View
@@ -16,7 +12,6 @@ import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.AnimRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
@@ -25,7 +20,6 @@ import de.beatbrot.screenshotassistant.sheets.drawsettings.DrawSettingsSheet
 import de.beatbrot.screenshotassistant.util.OpenAnimationListener
 import de.beatbrot.screenshotassistant.util.tryExport
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val viewModel by viewModels<ScreenshotActivityViewModel>()
@@ -72,9 +66,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             popMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.settings_item -> showSettings()
-                    R.id.about_item -> startActivity(AboutActivity::class)
-                    else -> false
+                    R.id.about_item -> startActivity(Intent(baseContext, AboutActivity::class.java))
+                    else -> throw IllegalArgumentException()
                 }
+                true
             }
             popMenu.menuInflater.inflate(R.menu.about_menu, popMenu.menu)
             popMenu.show()
@@ -176,31 +171,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         view.startAnimation(anim)
     }
 
-    private fun showSettings(): Boolean {
+    private fun showSettings() {
         ModalSettingsSheet().showNow(supportFragmentManager, "SETTINGS")
-        return true
-    }
-
-    private fun <T : Activity> startActivity(clazz: KClass<T>): Boolean {
-        startActivity(Intent(baseContext, clazz.java))
-        return true
     }
 
     private fun loadInitialImage(uri: Uri) {
         if (viewModel.currentBitmap.value == null) {
-            val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                loadImageFromDecoder(uri)
-            } else {
-                @Suppress("DEPRECATION")
-                getBitmap(contentResolver, uri)
-            }
-            viewModel.currentBitmap.value = bitmap
+            viewModel.currentBitmap.value = getBitmap(contentResolver, uri)
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.P)
-    private fun loadImageFromDecoder(uri: Uri): Bitmap {
-        val source = ImageDecoder.createSource(contentResolver, uri)
-        return ImageDecoder.decodeBitmap(source)
     }
 }
