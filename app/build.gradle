@@ -45,7 +45,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.1.0-alpha10'
 
-    implementation 'com.github.beatbrot:ImagePainter:bffb892d75'
+    implementation 'com.github.beatbrot:ImagePainter:1.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
     implementation 'com.github.savvyapps:ToggleButtonLayout:1.3.0'
