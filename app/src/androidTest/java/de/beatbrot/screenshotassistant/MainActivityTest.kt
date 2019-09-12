@@ -75,6 +75,15 @@ class MainActivityTest {
     }
 
     @Test
+    fun testImageEditorLoads() {
+        onView(withId(R.id.drawButton))
+            .perform(click())
+
+        onView(withId(R.id.imagePainter))
+            .check(matches(isCompletelyDisplayed()))
+    }
+
+    @Test
     @Ignore("Messes with other tests")
     fun testShareOpens() {
         onView(withId(R.id.shareButton))
