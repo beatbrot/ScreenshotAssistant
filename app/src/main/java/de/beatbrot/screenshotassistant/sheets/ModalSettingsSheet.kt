@@ -7,23 +7,20 @@ import android.view.ViewGroup
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import de.beatbrot.screenshotassistant.R
-import kotlinx.android.synthetic.main.titled_modal_sheet.*
+import de.beatbrot.screenshotassistant.databinding.TitledModalSheetBinding
 
 class ModalSettingsSheet : BottomSheetDialogFragment() {
-
+    private lateinit var v: TitledModalSheetBinding
     private val settingsSheet = SettingsSheet()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.titled_modal_sheet, container)
+    override fun onCreateView(i: LayoutInflater, root: ViewGroup?, state: Bundle?): View {
+        v = TitledModalSheetBinding.inflate(i, root, true)
+        return v.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title.text = getString(R.string.title_sheet_settings)
+        v.title.text = getString(R.string.title_sheet_settings)
 
         childFragmentManager.beginTransaction()
             .replace(R.id.fragContainer, settingsSheet)

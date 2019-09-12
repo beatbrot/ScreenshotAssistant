@@ -2,7 +2,9 @@ package de.beatbrot.screenshotassistant.sheets.drawsettings
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,18 +13,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thebluealliance.spectrum.SpectrumDialog
 import de.beatbrot.imagepainter.view.ImagePainterView
 import de.beatbrot.screenshotassistant.R
-import kotlinx.android.synthetic.main.sheet_colorsettings.*
+import de.beatbrot.screenshotassistant.databinding.SheetColorsettingsBinding
 
-class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
+class DrawSettingsSheet : Fragment() {
+    private lateinit var v: SheetColorsettingsBinding
 
     var imagePainter: ImagePainterView? = null
         set(value) {
             field = value
             field?.setRedoStatusChangeListener {
-                redoButton?.isEnabled = it
+                if (::v.isInitialized) {
+                    v.redoButton.isEnabled = it
+                }
             }
             field?.setUndoStatusChangeListener {
-                undoButton?.isEnabled = it
+                if (::v.isInitialized) {
+                    v.undoButton.isEnabled = it
+                }
             }
         }
 
@@ -31,6 +38,11 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
     private lateinit var colorPicker: SpectrumDialog.Builder
 
     private val viewModel by viewModels<DrawSettingsViewModel>()
+
+    override fun onCreateView(i: LayoutInflater, root: ViewGroup?, state: Bundle?): View {
+        v = SheetColorsettingsBinding.inflate(i, root, false)
+        return v.root
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +54,7 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
             if (newValue == null) {
                 return@Observer
             }
-            colorButton.color = newValue
+            v.colorButton.color = newValue
             colorPicker.setSelectedColor(newValue)
             if (viewModel.editingMode.value == DrawMode.PEN) {
                 imagePainter?.strokeColor = newValue
@@ -62,8 +74,8 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        undoButton.isEnabled = imagePainter?.canUndo() ?: false
-        redoButton.isEnabled = imagePainter?.canRedo() ?: false
+        v.undoButton.isEnabled = imagePainter?.canUndo() ?: false
+        v.redoButton.isEnabled = imagePainter?.canRedo() ?: false
 
         colorPicker = SpectrumDialog.Builder(context).apply {
             setTitle("Pick a color")
@@ -80,10 +92,10 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
             }
         }
 
-        undoButton.setOnClickListener { imagePainter?.undo() }
-        redoButton.setOnClickListener { imagePainter?.redo() }
-        penSelector.setToggled(R.id.draw_mode, true)
-        penSelector.onToggledListener = { _, toggle, selected ->
+        v.undoButton.setOnClickListener { imagePainter?.undo() }
+        v.redoButton.setOnClickListener { imagePainter?.redo() }
+        v.penSelector.setToggled(R.id.draw_mode, true)
+        v.penSelector.onToggledListener = { _, toggle, selected ->
             if (selected) {
                 viewModel.editingMode.value = when (toggle.id) {
                     R.id.draw_mode -> DrawMode.PEN
@@ -92,8 +104,8 @@ class DrawSettingsSheet : Fragment(R.layout.sheet_colorsettings) {
             }
         }
 
-        doneButton.setOnClickListener { onHideListener?.invoke() }
-        colorButton.setOnClickListener { colorPicker.show() }
+        v.doneButton.setOnClickListener { onHideListener?.invoke() }
+        v.colorButton.setOnClickListener { colorPicker.show() }
     }
 
     private fun SpectrumDialog.Builder.show() {
