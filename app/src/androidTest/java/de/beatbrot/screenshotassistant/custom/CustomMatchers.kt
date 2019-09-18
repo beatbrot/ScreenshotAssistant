@@ -25,10 +25,10 @@ fun <T : Activity> launchesActivity(activity: Class<T>) = object :
         val expectedPkg = activity.`package`?.name ?: return false
         val actPkg = item?.component?.packageName ?: return false
 
-        val expdClass = activity.name
+        val expectedClass = activity.name
         val actClass = item.component?.className ?: return false
 
-        return expectedPkg == actPkg && expdClass == actClass
+        return expectedPkg == actPkg && expectedClass == actClass
     }
 
     override fun describeTo(description: Description?) {

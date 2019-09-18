@@ -5,6 +5,7 @@
     tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="72dp"
+    tools:keep="@layout/sheet_colorsettings"
     android:background="?attr/colorSurface">
 
     <ImageButton
