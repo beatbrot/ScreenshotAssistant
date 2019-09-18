@@ -82,10 +82,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <fragment
-            android:id="@+id/drawSheet"
-            android:name="de.beatbrot.screenshotassistant.sheets.drawsettings.DrawSettingsSheet"
-            android:layout_width="match_parent"
-            android:layout_height="72dp" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

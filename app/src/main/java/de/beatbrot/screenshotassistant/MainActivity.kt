@@ -42,13 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (!isFinishing) {
-            viewModel.currentBitmap.value = when (viewModel.editingMode.value) {
-                EditingMode.CROP -> v.cropView.croppedImage
-                EditingMode.PAINT -> v.imagePainter.exportImage()
-                else -> throw IllegalStateException("No editing mode is set")
-            }
-        }
+        viewModel.cropRect.value = v.cropView.cropRect
+        viewModel.drawStack.value = v.imagePainter.drawStack
     }
 
     private fun initUI() {
@@ -99,6 +94,16 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.drawStack.observe(this, Observer { stack ->
+            if (stack != null) {
+                v.imagePainter.drawStack = stack
+            }
+        })
+
+        viewModel.cropRect.observe(this, Observer { rect ->
+            v.cropView.cropRect = rect ?: Rect(v.cropView.wholeImageRect)
+        })
+
         viewModel.shareIntent.observe(this, Observer { intent ->
             startActivity(Intent.createChooser(intent, baseContext.getString(R.string.share_image)))
         })
@@ -119,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                     v.cropView.tryExport()?.let {
                         viewModel.currentBitmap.value = it
                     }
+                    viewModel.cropRect.value = null
                     showBottomSheet()
                 }
                 else -> throw UnsupportedOperationException()

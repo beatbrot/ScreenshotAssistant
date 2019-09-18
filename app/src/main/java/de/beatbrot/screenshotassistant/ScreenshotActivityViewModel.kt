@@ -4,11 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.net.Uri
 import androidx.core.content.FileProvider
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import de.beatbrot.imagepainter.DrawStack
 import de.beatbrot.screenshotassistant.util.*
 import java.io.File
 import java.io.FileOutputStream
@@ -36,6 +38,10 @@ class ScreenshotActivityViewModel(application: Application) : AndroidViewModel(a
     val editingMode = liveDataOf(EditingMode.CROP)
 
     val currentBitmap = MutableLiveData<Bitmap>()
+
+    val drawStack = MutableLiveData<DrawStack>()
+
+    val cropRect = MutableLiveData<Rect>()
 
     fun shareImage(croppedImage: Bitmap) {
         val croppedUri = getScreenshotUri(croppedImage)
