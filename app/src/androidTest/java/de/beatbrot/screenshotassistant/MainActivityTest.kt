@@ -68,6 +68,18 @@ class MainActivityTest {
     }
 
     @Test
+    fun testSettingsLoad() {
+        onView(withId(R.id.menuButton))
+            .perform(click())
+
+        onView(withText(R.string.title_sheet_settings))
+            .perform(click())
+
+        onView(withText(R.string.image_quality))
+            .check(matches(isCompletelyDisplayed()))
+    }
+
+    @Test
     fun testCroppingWorks() {
         onView(withId(R.id.cropView))
             .perform(cropImageByHalf())
