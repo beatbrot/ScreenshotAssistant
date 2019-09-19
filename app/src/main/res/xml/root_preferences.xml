@@ -22,7 +22,7 @@
         android:icon="@drawable/ic_grade_unfocused_24dp"
         android:key="image_quality"
         android:max="100"
-        android:title="Image Quality"
+        android:title="@string/image_quality"
         app:adjustable="true"
         app:min="0"
         app:showSeekBarValue="true" />
@@ -32,7 +32,7 @@
         android:entries="@array/image_formats"
         android:entryValues="@array/image_formats"
         android:key="image_format"
-        android:title="Image Format"
+        android:title="@string/image_format"
         app:icon="@drawable/ic_format_shapes_unfocused_24dp"
         app:useSimpleSummaryProvider="true" />
 

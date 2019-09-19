@@ -12,4 +12,6 @@
     <string name="undo">Rückgängig</string>
     <string name="redo">Wiederholen</string>
     <string name="done">Fertig</string>
+    <string name="image_quality">Bildqualität</string>
+    <string name="image_format">Format</string>
 </resources>
