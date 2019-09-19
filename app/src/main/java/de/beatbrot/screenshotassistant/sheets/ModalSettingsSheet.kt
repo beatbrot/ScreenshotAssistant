@@ -14,7 +14,7 @@ class ModalSettingsSheet : BottomSheetDialogFragment() {
     private val settingsSheet = SettingsSheet()
 
     override fun onCreateView(i: LayoutInflater, root: ViewGroup?, state: Bundle?): View {
-        v = TitledModalSheetBinding.inflate(i, root, true)
+        v = TitledModalSheetBinding.inflate(i)
         return v.root
     }
 
