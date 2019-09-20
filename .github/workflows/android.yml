@@ -13,4 +13,3 @@ jobs:
         uses: msfjarvis/setup-android@0.1
         with:
           gradleTasks: build
-      - uses: vgaidarji/android-github-actions/emulator@v1.0.0
