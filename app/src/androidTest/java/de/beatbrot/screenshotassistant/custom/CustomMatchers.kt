@@ -7,7 +7,6 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 
-
 fun containsImage() = object : TypeSafeMatcher<View>(CropImageView::class.java) {
     override fun matchesSafely(item: View?): Boolean {
         val crop = item as CropImageView
@@ -34,5 +33,4 @@ fun <T : Activity> launchesActivity(activity: Class<T>) = object :
     override fun describeTo(description: Description?) {
         description?.appendText("launches ${activity.name}")
     }
-
 }

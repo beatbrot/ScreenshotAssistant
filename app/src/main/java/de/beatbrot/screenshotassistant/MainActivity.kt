@@ -171,7 +171,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private inline fun runAnimation(
-        view: View, @AnimRes animRes: Int,
+        view: View,
+        @AnimRes animRes: Int,
         crossinline onDone: () -> Unit
     ) {
         val anim = AnimationUtils.loadAnimation(baseContext, animRes)

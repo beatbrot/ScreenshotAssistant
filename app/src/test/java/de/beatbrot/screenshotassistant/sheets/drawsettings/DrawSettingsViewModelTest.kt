@@ -22,7 +22,7 @@ class DrawSettingsViewModelTest {
 
     @Before
     fun initVM() {
-        //We need to observe everything we want to access with .value
+        // We need to observe everything we want to access with .value
         viewModel = DrawSettingsViewModel().apply {
             strokeColor.observeForever(alibiObserver)
             editingMode.observeForever(alibiObserver)
@@ -69,7 +69,6 @@ class DrawSettingsViewModelTest {
         viewModel.penColor.value = Color.RED
         assertLDEquals(Color.MAGENTA, viewModel.markerColor)
     }
-
 
     private fun <T> assertLDEquals(expected: T, actual: LiveData<T>) {
         try {
