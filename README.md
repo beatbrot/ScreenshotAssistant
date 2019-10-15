@@ -3,9 +3,18 @@
 </p>
 <h3 align="center">Screenshot assistant</h3>
 <div align="center">
-<img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fbeatbrot%2FScreenshotAssistant%2Fbadge&style=flat" /><img src="https://img.shields.io/badge/status-active-success.svg" alt="Status"/>
-<img src="https://img.shields.io/github/issues/beatbrot/ScreenshotAssistant" alt="Issues">
-<img alt="GitHub" src="https://img.shields.io/github/license/beatbrot/ScreenshotAssistant">
+     <a href="https://github.com/beatbrot/ScreenshotAssistant/actions">
+          <img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fbeatbrot%2FScreenshotAssistant%2Fbadge&style=flat" />
+     </a>
+     <a href="https://github.com/beatbrot/ScreenshotAssistant/commits/master">
+          <img src="https://img.shields.io/badge/status-active-success.svg" alt="Status"/>
+     </a>
+     <a href="https://github.com/beatbrot/ScreenshotAssistant/issues">
+          <img src="https://img.shields.io/github/issues/beatbrot/ScreenshotAssistant" alt="Issues">
+     </a>
+     <a href="LICENSE">
+          <img alt="License" src="https://img.shields.io/github/license/beatbrot/ScreenshotAssistant">
+     </a>
 </div>
 
 <div align="center">
