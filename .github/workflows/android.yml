@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build with Gradle
-        uses: msfjarvis/setup-android@0.1
+        uses: msfjarvis/setup-android@1.0
         with:
           gradleTasks: build
