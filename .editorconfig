@@ -7,4 +7,4 @@ tab_width = 4
 
 # noinspection EditorConfigKeyCorrectness
 [{*.kt, *.kts}]
-disabled_rules = no-wildcard-imports, import-ordering
+disabled_rules = no-wildcard-imports,import-ordering
