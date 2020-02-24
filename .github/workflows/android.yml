@@ -12,4 +12,5 @@ jobs:
       - name: Build with Gradle
         uses: msfjarvis/setup-android@1.0
         with:
-          gradleTasks: build
+          entrypoint: ./gradlew
+          args: build
