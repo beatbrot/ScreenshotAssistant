@@ -6,7 +6,7 @@ apply plugin: "org.jmailen.kotlinter"
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "de.beatbrot.screenshotassistant"
         minSdkVersion 23
@@ -22,7 +22,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    viewBinding.enabled = true
+    buildFeatures {
+        viewBinding = true
+    }
 
     compileOptions {
         sourceCompatibility = 1.8
