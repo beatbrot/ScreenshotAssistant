@@ -44,7 +44,7 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.1"
     implementation "androidx.fragment:fragment-ktx:1.2.2"
 
-    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
 
     implementation 'com.github.beatbrot:ImagePainter:3c3f2b9bcc'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
