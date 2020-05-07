@@ -28,7 +28,7 @@
         app:showSeekBarValue="true" />
 
     <ListPreference
-        android:defaultValue="JPEG"
+        android:defaultValue="PNG"
         android:entries="@array/image_formats"
         android:entryValues="@array/image_formats"
         android:key="image_format"
